@@ -126,3 +126,16 @@ exports.deleteDataHire=(req,res)=>{
     }) 
 };
 
+exports.myproject=(req,res)=>{
+    jwt.verify(req.token,'my_secret_key',(err,data)=>{
+        if(err) res.sendStatus(403);
+        else{
+          let sql = `SELECT * FROM hire WHERE email_com='${req.params.email_com}'`;
+          let query = conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+            });
+  
+        }
+    }) 
+};
