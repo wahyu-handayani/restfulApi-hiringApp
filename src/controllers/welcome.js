@@ -91,14 +91,14 @@ exports.newLogin = function(req, res) {
         //console.log(results.)
         if(err) throw err;
         else{
-            if (results[0].email==email && results[0].password==password){
+            if (results[0].email==email && results[0].password==password && results[0].position==position){
                 token = jwt.sign(JSON.parse(JSON.stringify(results[0])), 'my_secret_key', {
                     expiresIn: 3600
                 });
                 res.json({
                     "token": token,
                 });   
-            }else res.send('input email and password correctly')
+            }else res.send('input email, password, and position correctly')
         }
 
     });
