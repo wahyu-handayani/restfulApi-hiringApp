@@ -99,9 +99,10 @@ exports.createNewHire=(req,res)=>{
 //update
 exports.updateDataHire=(req,res)=>{
     jwt.verify(req.token,'my_secret_key',(err,data)=>{
+        let myStatus= req.body.status || 'pending'
         if(err) res.sendStatus(403);
         else{
-          let sql = "UPDATE hire SET project_name='"+req.body.project_name+"', description='"+req.body.description+"',email_eng='"+req.body.email_eng+"',email_com='"+req.body.email_com+"',status='"+req.body.status+"' WHERE id_project="+req.params.id_project;
+          let sql = "UPDATE hire SET email_eng='"+req.body.email_eng+"',status='"+myStatus+"' WHERE id_project="+req.params.id_project;
           let query = conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
